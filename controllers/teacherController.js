@@ -11,7 +11,7 @@ import { Deadline } from "../models/deadline.js";
 import * as fileServices  from "../Services/fileServices.js";
 import * as requestServices from "../Services/requestServices.js";
 import * as videoConferenceService from "../Services/videoConferenceService.js";
-import {sendEmail} from "../services/emailService.js";
+import { sendEmail } from "../Services/emailService.js";
 import { generateRequestAcceptedTemplate, generateRequestRejectedTemplate } from "../utils/emailTemplates.js";
 
 const buildTeacherSenderDetails = async (teacherId, panelId = null) => {

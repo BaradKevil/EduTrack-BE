@@ -4,7 +4,7 @@ import User from "../models/user.js";
 import { generateToken } from "../utils/generateToken.js";
 import { generateForgotPasswordEmailTemplate, generatePasswordResetSuccessTemplate } from "../utils/emailTemplates.js";
 import crypto from "crypto";
-import { sendEmail } from "../services/emailService.js";
+import { sendEmail } from "../Services/emailService.js";
 
 const escapeRegex = (text) => String(text).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
