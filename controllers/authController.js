@@ -91,11 +91,12 @@ export const login = asyncHandler(async (req, res, next) => {
 
 //logout user
 export const logout = asyncHandler(async (req, res, next) => {
+    const isProd = process.env.NODE_ENV === "production";
     res.cookie("token", "", {
         httpOnly: true,
         expires: new Date(0),
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "Strict",
+        secure: isProd,
+        sameSite: isProd ? "None" : "Lax",
         path: "/",
     });
 

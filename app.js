@@ -20,12 +20,28 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename); 
 
 const app = express();
+const configuredOrigins = process.env.FRONTEND_URL
+    ? process.env.FRONTEND_URL.split(",").map((o) => o.trim())
+    : [];
+const defaultOrigins = ["http://localhost:5173", "http://localhost:3000"];
+
 app.use(
     cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"], 
-})
+        origin: (origin, callback) => {
+            if (
+                !origin ||
+                configuredOrigins.includes(origin) ||
+                defaultOrigins.includes(origin) ||
+                origin.endsWith(".vercel.app")
+            ) {
+                callback(null, true);
+            } else {
+                callback(new Error(`Not allowed by CORS: ${origin}`));
+            }
+        },
+        credentials: true,
+        methods: ["GET", "POST", "PUT", "DELETE", "PATCH"], 
+    })
 );
 
 const uploadDir = path.join(__dirname, "uploads");

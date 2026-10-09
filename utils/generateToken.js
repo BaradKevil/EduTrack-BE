@@ -2,10 +2,11 @@ export const generateToken = (user, statusCode, message, res) => {
     const token = user.generateToken();
 
     // Options shared by all cookie settings
+    const isProd = process.env.NODE_ENV === "production";
     const cookieOptions = {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",  // https-only in prod
-        sameSite: "Strict",
+        secure: isProd,
+        sameSite: isProd ? "None" : "Lax",
         path: "/",
     };
 
