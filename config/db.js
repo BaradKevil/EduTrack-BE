@@ -7,6 +7,10 @@ export const connectDB = async () => {
             throw new Error("MONGO_URL is not set in the environment");
         }
 
+        if (process.env.NODE_ENV === "production" && (mongoUrl.includes("127.0.0.1") || mongoUrl.includes("localhost"))) {
+            console.warn("⚠️ WARNING: MONGO_URL points to localhost/127.0.0.1 in production. Cloud hosts (like Render) require a cloud database such as MongoDB Atlas.");
+        }
+
         const serverSelectionTimeoutMS = Number(
             process.env.MONGO_SERVER_SELECTION_TIMEOUT_MS ?? 30000
         );

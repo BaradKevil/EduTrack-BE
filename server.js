@@ -4,14 +4,18 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-//DATABSE CONNECTION---
-connectDB(); 
+// DATABASE CONNECTION & START SERVER
+const PORT = process.env.PORT || 4000;
+let server;
 
-//START SERVER
-const PORT = process.env.PORT || 4000; 
-const server = app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);  
-});
+const startServer = async () => {
+    await connectDB();
+    server = app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
+};
+
+startServer();
 
 
 
